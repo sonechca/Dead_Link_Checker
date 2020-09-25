@@ -6,17 +6,18 @@
 </p>
 
 ## About DLChecker
-This repository is a command-line tool to find and report a dead URL status in a file. This tool can help users to check broken link and show them list of broken link
+This repository is a command-line tool to find and report a dead URL status in a file. This tool can help users to check the broken link and show the list of broken link.
 
 ### Features
- - Searching for the URLs in the input file
+ - Searching for the URLs in the input files
  - Checking multiple URLs by typing URL in the command line
  - Organizing links each working and broken URLs
  - Providing [Help] option to show users how to use this tool
- - Providing version of this tool
- - Printing good status[200] URLs with green colour and bad status[400,404] URLs with red colour
- - Printing unknown URLs with gray colour which have error or long loading by using timeout 
+ - Showing unknown URLs which have status code(not 200 and 400~599), error, or long loading (1.5 seconds timeout)
 
+### Optional Features
+ - Starting an argument with -v/-V can be supplied to the program for current version information.
+ - Printing good status[200] URLs with green colour and bad status[400,404] URLs with red colour
 ## Getting Started
  
   1. Clone the repo
@@ -30,12 +31,33 @@ This repository is a command-line tool to find and report a dead URL status in a
   ```bash
   cd DEAD_LINK_CHECKER
   ```
-  3. DLChecker run command
+  3. Install library
+  ```bash
+  pip3 install requests
+  ```
+  4. DLChecker run command
   ```bash
   python3 DLChecker.py <filename> or <URL>
   ```
 ## Help/Usage
- Users can call help/usage box if they do not know how to use this tool
+ Users can call the help/usage box if they do not know how to use this tool.
  ```bash
- python3 DLChecker.py or python3 DLChecker.py -h/-H
+ python3 DLChecker.py (blank) or python3 DLChecker.py -h/-H
  ```
+ <p align="center">
+  <img src="./venv/img/DLC2.png" alt="DLChecker" width="738">
+</p>
+
+## Library
+ - [Requests](https://requests.readthedocs.io/en/master/)
+	 - Requests is an elegant and simple HTTP library for Python, built for human beings.
+     - Requests allows you to send HTTP/1.1 requests extremely easily.
+     - User can check the response status code
+     ```bash
+        >>> r = requests.get('https://httpbin.org/get')
+        >>> r.status_code
+        200
+     ```
+
+## Issues
+ - The current version of the tool cannot read the redirect status code(303, 308). The tool is recognizing that redirect is an error exception

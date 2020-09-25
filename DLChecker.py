@@ -33,6 +33,8 @@ def check_dead_links(URL):
         if response.status_code == 200:
             links.append("PASSED [" + str(response.status_code) + "] " + URL + " - Good")
             prGreen(links[-1])
+        elif response.status_code >= 300 and response.status_code < 400:
+            link_redirects(URL)
         elif response.status_code >= 400 and response.status_code <= 599:
             dead_links.append("FAILED [" + str(response.status_code) + "] " + URL + " - Bad")
             prRed(dead_links[-1])
@@ -41,6 +43,15 @@ def check_dead_links(URL):
 
     except (Timeout, ConnectionError) as e:
         prLightGray("UNKNOWN " + URL);
+
+def link_redirects(r_url):
+    while True:
+        yield r_url
+        res = requests.head(r_url)
+        if 300 <= res.status_code < 400:
+            r_url = res.headers['location']
+        else:
+            break
 
 #Showing the result after checking all of the URLs in the file
 def check_result():
