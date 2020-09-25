@@ -6,7 +6,7 @@
 </p>
 
 ## About DLChecker
-This repository is a command-line tool to find and report a dead URL status in a file. This tool can help users to check the broken link and show the list of broken link.
+This repository is a command-line tool to find and report a dead URL status in a file. This tool can help users to check the broken link and show the list of broken links.
 
 ### Features
  - Searching for the URLs in the input files
@@ -26,7 +26,7 @@ This repository is a command-line tool to find and report a dead URL status in a
   git clone https://github.com/sonechca/Dead_Link_Checker.git
   ```
   
-  2. the DLChecker file in DEAD_LINK_CHECKER folder on command line
+  2. The DLChecker file in the DEAD_LINK_CHECKER folder on the command line
   
   ```bash
   cd DEAD_LINK_CHECKER
