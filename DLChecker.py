@@ -3,15 +3,23 @@ import requests
 import sys
 from requests.exceptions import ConnectionError, Timeout
 
+#Regular expression
 regex = 'https?:\/\/[=a-zA-Z0-9\_\/\?\&\.\-]+'
+
+#List of each links
 links = []
 dead_links = []
 redirect_links = []
 
+#Colour functions
 def prGreen(skk): print("\033[92m {}\033[00m".format(skk))
 def prRed(skk): print("\033[91m {}\033[00m".format(skk))
 def prLightGray(skk): print("\033[90m {}\033[00m" .format(skk))
 
+#Dead link checker, Check the resonse status and show users that URL is dead or not
+#Save in the list each URLs
+#Using Request libarary
+#The link which have connection error print the "Unknown URls"
 def check_dead_links(URL):
     try:
         response = requests.get(URL, timeout=1.5)
@@ -38,6 +46,7 @@ def check_dead_links(URL):
 #         else:
 #             break
 
+#Showing the result after checking all of the URLs in the file
 def result():
     print("\n---Checking is done")
     if(len(links) > 0):
@@ -48,12 +57,13 @@ def result():
         print("---The following links were broken: ")
         for link in dead_links:
             prRed("\t" + link)
-    if(len(redirect_links) > 0):
-        print("---The following links were redirected: ")
-        for resp in redirect_links.history:
-            print(resp.url, resp.text)
+    # if(len(redirect_links) > 0):
+    #     print("---The following links were redirected: ")
+    #     for resp in redirect_links.history:
+    #         print(resp.url, resp.text)
 
-
+#Help message function
+#User can call this function when user do not write argument or wrtie -h or -H
 def help_dead_link_check():
     prGreen(
         """
@@ -72,7 +82,9 @@ def help_dead_link_check():
 |   - DLCheck -v or DLCheck -v or DLCheck -Version  |
 -----------------------------------------------------""")
 
-
+#Main
+#Check the argument first what users want to do it
+#Can call "help", "version", "URLs checker", "file checker"
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         if re.search('^-[vV]', sys.argv[1]):
@@ -83,9 +95,10 @@ if __name__ == '__main__':
         else:
             print("URL Checker is activated")
             for argv in sys.argv:
+                #check URLs which users want to check
                 if re.search(regex, argv):
                     check_dead_links(argv)
-                    result()
+                #check the file
                 else:
                     try:
                         with open(argv, 'rt') as f:
@@ -96,8 +109,7 @@ if __name__ == '__main__':
                         print("Error: " + str(e))
                         help_dead_link_check()
                         break
-                f.close()
-                result()
+            result()
 
     else:
         help_dead_link_check()

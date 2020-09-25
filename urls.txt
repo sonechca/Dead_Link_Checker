@@ -1,45 +1,6 @@
 
 ################# Failing Feeds Commented Out [Start] #################
 
-#Feed excluded due to getaddrinfo ENOTFOUND s-aleinikov.blog.ca s-aleinikov.blog.ca:80
-#[http://s-aleinikov.blog.ca/feed/atom/posts/]
-#name=Sergey Aleinikov
-
-
-#Feed excluded due to getaddrinfo ENOTFOUND ejtorre.blog.ca ejtorre.blog.ca:80
-#[http://ejtorre.blog.ca/feed/rss2/posts/]
-#name=Eugene Torre
-
-
-#Feed excluded due to getaddrinfo ENOTFOUND rickeyre.ca rickeyre.ca:80
-#[http://rickeyre.ca/open-source-feed.xml]
-#name=Rick Eyre
-
-
-#Feed excluded due to Request failed with status code 404
-#[http://tea.cesaroliveira.net/archives/tag/seneca/feed]
-#name=Cesar Oliveira
-
-#Feed excluded due to getaddrinfo ENOTFOUND blog.marcussaad.com blog.marcussaad.com:80
-#[http://blog.marcussaad.com/?feed=rss2&amp;lang=en]
-#name=Marcus Saad
-
-
-#Feed excluded due to getaddrinfo ENOTFOUND matthewtorrance.com matthewtorrance.com:80
-#[http://matthewtorrance.com/category/osd/feed/]
-#name=Matthew Torrance
-
-
-#Feed excluded due to getaddrinfo ENOTFOUND hesam-chobanlou.com hesam-chobanlou.com:80
-#[http://hesam-chobanlou.com/feed/atom.php]
-#name=Hesam Chobanlou
-
-
-#Feed excluded due to Request failed with status code 404
-#[http://zadkielm.blogspot.com/feeds/posts/default/-/open%20source]
-#name=Ezadkiel Marbella
-
-
 #Feed excluded due to Request failed with status code 404
 #[http://travisrawn.blogspot.com/feeds/posts/default]
 #name=Travis Rawn
