@@ -60,4 +60,11 @@ This repository is a command-line tool to find and report a dead URL status in a
      ```
 
 ## Issues
+ - Colouring in CMD not work #1
+ - Use the correct python way when checking for empty/non-empty lists #2
  - The current version of the tool cannot read the redirect status code(303, 308). The tool is recognizing that redirect is an error exception
+
+## Solution
+ - Adding the colorama library to fix error. I used function that contain gray color code to use for unknown URL. Colorama library does not have gray color
+ - I fixed the condition code to check links list and dead_links list
+

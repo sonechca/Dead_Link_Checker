@@ -2,6 +2,8 @@ import re
 import requests
 import sys
 from requests.exceptions import ConnectionError, Timeout
+from colorama import init, Fore, Back, Style
+init()
 
 #Regular expression
 regex = 'https?:\/\/[=a-zA-Z0-9\_\/\?\&\.\-]+'
@@ -12,8 +14,6 @@ dead_links = []
 
 # --- functions ---
 #Colour functions
-def prGreen(skk): print("\033[92m {}\033[00m".format(skk))
-def prRed(skk): print("\033[91m {}\033[00m".format(skk))
 def prLightGray(skk): print("\033[90m {}\033[00m" .format(skk))
 
 #file check function
@@ -32,12 +32,12 @@ def check_dead_links(URL):
         response = requests.get(URL, timeout=1.5)
         if response.status_code == 200:
             links.append("PASSED [" + str(response.status_code) + "] " + URL + " - Good")
-            prGreen(links[-1])
+            print(Fore.GREEN + links[-1])
         elif response.status_code >= 300 and response.status_code < 400:
             link_redirects(URL)
         elif response.status_code >= 400 and response.status_code <= 599:
             dead_links.append("FAILED [" + str(response.status_code) + "] " + URL + " - Bad")
-            prRed(dead_links[-1])
+            print(Fore.RED + dead_links[-1])
         else:
             raise ConnectionError
 
@@ -55,20 +55,20 @@ def link_redirects(r_url):
 
 #Showing the result after checking all of the URLs in the file
 def check_result():
-    print("\n------------- Checking is done ---------------")
-    if(len(links) > 0):
+    print(Fore.RESET + "\n------------- Checking is done ---------------")
+    if links:
         print("------ The following links were working ------")
         for link in links:
-            prGreen("| " + link)
-    if(len(dead_links) > 0):
-        print("------ The following links were broken -------")
+            print(Fore.GREEN + "| " + link)
+    if dead_links:
+        print(Fore.RESET + "------ The following links were broken -------")
         for link in dead_links:
-            prRed("| " + link)
+            print(Fore.RED + "| " + link)
 
 #Help message function
 #User can call this function when user do not write argument or wrtie -h or -H
 def help_dead_link_check():
-    prGreen(
+    print(Fore.GREEN +
         """
 -----------------------------------------------------
 |                      help                         |
