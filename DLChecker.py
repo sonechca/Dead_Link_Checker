@@ -11,6 +11,7 @@ regex = 'https?:\/\/[=a-zA-Z0-9\_\/\?\&\.\-]+'
 #List of each links
 links = []
 dead_links = []
+jsonArr = []
 
 # --- functions ---
 #Colour functions
@@ -85,6 +86,27 @@ def help_dead_link_check():
 |   - DLCheck -v or DLCheck -v or DLCheck -Version  |
 -----------------------------------------------------""")
 
+def create_JSON(file):
+    with open(file, 'rt') as f:
+        contentUrls = re.findall(regex, f.read())
+    for url in contentUrls:
+        try:
+            response = requests.get(url, timeout=1.5)
+            jsonObj = {
+                "url": url,
+                "status": response.status_code
+                }
+            
+            if response.status_code == 200:
+                jsonArr.append(jsonObj)
+            elif response.status_code >= 400 and response.status_code <= 599:
+                jsonArr.append(jsonObj)
+            else:
+                raise ConnectionError
+
+        except (Timeout, ConnectionError) as e:
+            jsonArr.append(jsonObj);
+
 #--- Main ---
 #Check the argument first what users want to do it
 #Can call "help", "version", "URLs checker", "file checker"
@@ -95,6 +117,10 @@ if __name__ == '__main__':
             print("Version: 0.1 by Mintae Kim")
         elif re.search('^-[hH]', sys.argv[1]):
             help_dead_link_check()
+        elif re.search('^--[jJ]', sys.argv[1]):
+            print("URL JSON file is created...")
+            create_JSON(sys.argv[2])
+            print(jsonArr)
         else:
             print("URL Checker is activated")
             for argv in sys.argv:
