@@ -13,16 +13,24 @@ links = []
 dead_links = []
 jsonArr = []
 
+unknown_links = []
 # --- functions ---
 #Colour functions
 def prLightGray(skk): print("\033[90m {}\033[00m" .format(skk))
 
 #file check function
-def file_chekcer(file):
+def file_chekcer(file, flag):
     with open(file, 'rt') as f:
         contentUrls = re.findall(regex, f.read())
-    for url in contentUrls:
-        check_dead_links(url)
+    if flag == "g":
+        for url in contentUrls:
+            check_good_links(url)
+    elif flag == "b":
+        for url in contentUrls:
+            check_bad_links(url)
+    else:
+        for url in contentUrls:
+            check_dead_links(url)
 
 #Dead link checker, Check the resonse status and show users that URL is dead or not
 #Save in the list each URLs
@@ -45,6 +53,23 @@ def check_dead_links(URL):
     except (Timeout, ConnectionError) as e:
         prLightGray("UNKNOWN " + URL);
 
+def check_good_links(URL):
+    try:
+        response = requests.get(URL, timeout=1.5)
+        if response.status_code == 200:
+            links.append("PASSED [" + str(response.status_code) + "] " + URL + " - Good")
+            print(Fore.GREEN + links[-1])
+    except (Timeout, ConnectionError) as e:
+        unknown_links.append("UNKNOWN " + URL);
+
+def check_bad_links(URL):
+    try:
+        response = requests.get(URL, timeout=1.5)
+        if response.status_code >= 400 and response.status_code <= 599:
+            dead_links.append("FAILED [" + str(response.status_code) + "] " + URL + " - Bad")
+            print(Fore.RED + dead_links[-1])
+    except (Timeout, ConnectionError) as e:
+        unknown_links.append("UNKNOWN " + URL);
 def link_redirects(r_url):
     while True:
         yield r_url
@@ -121,6 +146,16 @@ if __name__ == '__main__':
             print("URL JSON file is created...")
             create_JSON(sys.argv[2])
             print(jsonArr)
+
+        elif re.search('^--good', sys.argv[1]):
+            print("Good URL Checker is activated")
+            file_chekcer(sys.argv[2], "g")
+        elif re.search('^--bad', sys.argv[1]):
+            print("Bad URL Checker is activated")
+            file_chekcer(sys.argv[2], "b")
+        elif re.search('^--all', sys.argv[1]):
+            print("All URL Checker is activated")
+            file_chekcer(sys.argv[2], "a")
         else:
             print("URL Checker is activated")
             for argv in sys.argv:
@@ -129,7 +164,7 @@ if __name__ == '__main__':
                     check_dead_links(argv)
                 #check the file
                 else:
-                    file_chekcer(argv)
+                    file_chekcer(argv, "a")
             check_result()
 
     else:
