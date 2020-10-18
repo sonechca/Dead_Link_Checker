@@ -28,6 +28,26 @@ def file_chekcer(file, flag):
     elif flag == "b":
         for url in contentUrls:
             check_bad_links(url)
+    elif flag == "i":
+        comment = False
+        if len(sys.argv) == 4:
+            try:
+                with open(sys.argv[2], 'r') as f:
+                    line = f.read()
+                    if line[0] == "#":
+                        comment = True
+                    ignoredUrls = re.findall(regex, line)
+                if len(ignoredUrls) == 0 and comment is False:
+                    raise FileNotFoundError;
+
+                #Remove all ignored urls then check result
+                urls = [x for x in contentUrls if x not in ignoredUrls]
+                for url in urls:
+                    check_dead_links(url)
+            except FileNotFoundError:
+                print(Fore.RED + "Error: invalid text file!")
+        else:
+            print("Fore.RED + Error: invalid number of arguments!")
     else:
         for url in contentUrls:
             check_dead_links(url)
@@ -70,6 +90,7 @@ def check_bad_links(URL):
             print(Fore.RED + dead_links[-1])
     except (Timeout, ConnectionError) as e:
         unknown_links.append("UNKNOWN " + URL);
+
 def link_redirects(r_url):
     while True:
         yield r_url
@@ -156,6 +177,9 @@ if __name__ == '__main__':
         elif re.search('^--all', sys.argv[1]):
             print("All URL Checker is activated")
             file_chekcer(sys.argv[2], "a")
+        elif re.search('^--ignore', sys.argv[1]):
+            file_chekcer(sys.argv[3], "i")
+            check_result()
         else:
             print("URL Checker is activated")
             for argv in sys.argv:
