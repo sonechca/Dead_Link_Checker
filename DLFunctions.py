@@ -5,7 +5,7 @@ from colorama import init, Fore, Back, Style
 init()
 
 #Regular expression
-regex = 'https?:\/\/[=a-zA-Z0-9\_\/\?\&\.\-]+'
+regex = 'https?://[^\s<>"].[^\s<>"]+'
 
 #List of each links
 goodLinks = []
@@ -140,3 +140,15 @@ def create_JSON(file):
 
         except (Timeout, ConnectionError) as e:
             jsonArr.append(jsonObj);
+
+# check the lastest 10 telescope url
+def telescope_url_check():
+    f = open('telescope.txt', mode='wt', encoding='utf-8')
+    localUrl = "http://localhost:3000/posts"
+    urls = requests.get(localUrl).json()
+    for url in urls:
+        id = url.get("id")
+        post = (f'{localUrl}/{id}')
+        f.write(f'{post}\n')
+
+

@@ -38,6 +38,10 @@ if __name__ == '__main__':
         elif re.search('^--ignore', sys.argv[1]):
             DLFunctions.file_chekcer(sys.argv[3], "i")
             DLFunctions.check_result()
+        elif re.search('^--t', sys.argv[1]):
+            print("Telescope url checker is activated")
+            DLFunctions.telescope_url_check()
+            DLFunctions.file_chekcer("telescope.txt", "a")
         else:
             print("URL Checker is activated")
             for argv in sys.argv:
@@ -51,3 +55,4 @@ if __name__ == '__main__':
 
     else:
         DLFunctions.help_dead_link_check()
+
