@@ -1,0 +1,13 @@
+
+[flake8]
+ignore= E302, W503, W605
+max-line-length = 88
+exclude =
+    .git,
+    __pycache__,
+    CONTIRIBUTING.md
+    ignore.txt
+    index2html
+    LICENSE
+    README.md
+    urls.txt
