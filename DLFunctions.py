@@ -62,7 +62,7 @@ def file_chekcer(file, flag):
 # The link which have connection error print the "Unknown URls"
 def check_dead_links(URL, flag):
     try:
-        response = requests.get(URL, timeout=1.5)
+        response = requests.get(URL)
         if response.status_code == 200 and flag != "b":
             good_links(URL, response.status_code)
         elif (
@@ -92,6 +92,11 @@ def good_links(URL, status):
 def bad_links(URL, status):
     badLinks.append("FAILED [" + str(status) + "] " + URL + " - Bad")
     print(Fore.RED + badLinks[-1])
+
+
+def single_link_status_checker(url):
+    request = requests.get(url)
+    return request.status_code
 
 
 def link_redirects(r_url):
