@@ -47,3 +47,19 @@ bash linter.sh
 
 You can check the [settings.json](https://github.com/sonechca/Dead_Link_Checker/blob/master/.vscode/settings.json)
 It will show you the list of what I provide a way to integrate them into our editor or IDE so that we get the benefits while we are writing code
+
+## Test Tool
+
+Dead Link Check use testing framework "Pytest". You can contribute to add test more based on "file" or "link". Test files are in Tests folder You can test after creating your test. CI will check the your Pull Request before I merged your PR.
+You need to install pytest typing below:
+
+```bash
+pip install pytest
+```
+
+Before Pull Request, you need to check your test. Pytest will check your file have error or not
+command below:
+
+```bash
+pytest file_name
+```
