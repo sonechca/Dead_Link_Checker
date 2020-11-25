@@ -62,7 +62,7 @@ def file_chekcer(file, flag):
 # The link which have connection error print the "Unknown URls"
 def check_dead_links(URL, flag):
     try:
-        response = requests.get(URL)
+        response = requests.get(URL, Timeout=1.5)
         if response.status_code == 200 and flag != "b":
             good_links(URL, response.status_code)
         elif (
