@@ -1,4 +1,5 @@
 # import pytest
+import pytest
 import requests
 import DLFunctions as dlf
 
@@ -25,6 +26,28 @@ def test_for_400(monkeypatch):
 
     monkeypatch.setattr(requests, "get", mock_url)
     assert dlf.single_link_status_checker("https://google.com") == 404
+
+
+def test_for_timeout(monkeypatch, capsys):
+    def mock_timeout(url, Timeout):
+        raise requests.exceptions.Timeout
+
+    monkeypatch.setattr(requests, "get", mock_timeout)
+    dlf.check_dead_links("https://google.com", "z")
+
+    captured = capsys.readouterr()
+    assert "UNKNOWN" in captured.out
+
+
+def test_for_connection_error(monkeypatch, capsys):
+    def mock_timeout(url, Timeout):
+        raise requests.exceptions.ConnectionError
+
+    monkeypatch.setattr(requests, "get", mock_timeout)
+    dlf.check_dead_links("https://google.com", "z")
+
+    captured = capsys.readouterr()
+    assert "UNKNOWN" in captured.out
 
 
 # Test for printing color "Good" and "Bad"
