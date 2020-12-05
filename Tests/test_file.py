@@ -1,5 +1,5 @@
 import pytest
-import DLFunctions as dlf
+from src import DLFunctions as dlf
 
 
 def test_check_no_file():

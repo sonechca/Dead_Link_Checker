@@ -1,7 +1,7 @@
 # import pytest
 import pytest
 import requests
-import DLFunctions as dlf
+from src import DLFunctions as dlf
 
 
 def test_for_200(monkeypatch):
