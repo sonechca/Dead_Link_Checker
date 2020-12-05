@@ -1,6 +1,10 @@
 import sys
-import DLFunctions
 import re
+
+try:
+    from src import DLFunctions
+except ModuleNotFoundError:
+    import DLFunctions
 
 # #Regular expression
 regex = DLFunctions.regex
@@ -11,14 +15,12 @@ badLinks = DLFunctions.badLinks
 jsonArr = DLFunctions.jsonArr
 unknownLinks = DLFunctions.unknownLinks
 
-# --- Main ---
-# Check the argument first what users want to do it
-# Can call "help", "version", "URLs checker", "file checker"
-if __name__ == "__main__":
+
+def main_wrapper():
     if len(sys.argv) > 1:
         if re.search("^-[vV]", sys.argv[1]):
             print("Program name: Dead-URL-Check")
-            print("Version: 0.1 by Mintae Kim")
+            print("Version: 1.0.1 by Mintae Kim")
         elif re.search("^-[hH]", sys.argv[1]):
             DLFunctions.help_dead_link_check()
         elif re.search("^--[jJ]", sys.argv[1]):
@@ -55,3 +57,10 @@ if __name__ == "__main__":
 
     else:
         DLFunctions.help_dead_link_check()
+
+
+# --- Main ---
+# Check the argument first what users want to do it
+# Can call "help", "version", "URLs checker", "file checker"
+if __name__ == "__main__":
+    main_wrapper()
