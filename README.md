@@ -8,7 +8,7 @@
   <img src="./venv/img/DLC1.png" alt="DLChecker" width="738">
 </p>
 
-## Dead-Link-Checker 1.0.4 package download
+## Dead-Link-Checker 1.0.1 package download
 
 - Go to the [link](https://pypi.org/project/Dead-Link-Checker/)
 - copy latest version command
@@ -16,6 +16,12 @@
 
 ```bash
 pip install Dead-Link-Checker
+```
+
+It will show you my version command below:
+
+```bash
+DLChecker -v
 ```
 
 ## About DLChecker
